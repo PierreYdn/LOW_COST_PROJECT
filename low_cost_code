@@ -101,3 +101,25 @@ mean(na.omit(bdd_cluster5$part_reservation_site))
 mean(na.omit(bdd_cluster1$part_reservation_partenaire1))
 mean(na.omit(bdd_cluster3$part_reservation_partenaire1))
 mean(na.omit(bdd_cluster5$part_reservation_partenaire1))
+
+
+#Moyennes des trajets axes par clients
+mean(na.omit(BDD$part_trajets_axe_ouest))
+mean(na.omit(BDD$part_trajets_axe_nord))
+mean(na.omit(BDD$part_trajets_axe_sud))
+mean(na.omit(BDD$part_trajets_axe_est))
+mean(na.omit(bdd_cluster1$part_trajets_axe_est))
+mean(na.omit(bdd_cluster1$part_trajets_axe_ouest))
+mean(na.omit(bdd_cluster1$part_trajets_axe_sud))
+mean(na.omit(bdd_cluster1$part_trajets_axe_nord))
+
+#Moyennes des voyageurs par tranche d'âge
+sum(na.omit(BDD$age_0_24))/30000
+sum(na.omit(BDD$age_25_34))/30000
+sum(na.omit(BDD$age_35_55))/30000
+sum(na.omit(BDD$age_56_70))/30000
+
+#moyenne par lieux de résidence
+sum(na.omit(BDD$resident_france_horsIDF))/30000
+sum(na.omit(BDD$resident_IDF))/30000
+sum(na.omit(BDD$resident_horsfrance))/30000
