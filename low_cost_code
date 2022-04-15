@@ -113,13 +113,32 @@ mean(na.omit(bdd_cluster1$part_trajets_axe_ouest))
 mean(na.omit(bdd_cluster1$part_trajets_axe_sud))
 mean(na.omit(bdd_cluster1$part_trajets_axe_nord))
 
-#Moyennes des voyageurs par tranche d'âge
+#Moyenne des voyageurs par tranche d'âge
 sum(na.omit(BDD$age_0_24))/30000
 sum(na.omit(BDD$age_25_34))/30000
 sum(na.omit(BDD$age_35_55))/30000
 sum(na.omit(BDD$age_56_70))/30000
 
-#moyenne par lieux de résidence
+#Moyenne par lieux de résidence
 sum(na.omit(BDD$resident_france_horsIDF))/30000
 sum(na.omit(BDD$resident_IDF))/30000
 sum(na.omit(BDD$resident_horsfrance))/30000
+
+#Taux et moyenne des voyages par famille
+table(BDD$part_voyages_famille_total > 0)
+6987 -> voyageur_famille
+6987/30000 -> tx_voyageur_famille
+mean(BDD$part_voyages_famille_total) #en moyenne un client fait 12% de voyages en famille
+
+
+#Moyennes par type de voyages
+mean(BDD$part_vacances)
+mean(BDD$part_weekend)
+mean(BDD$part_trajets_matinaux)
+mean(BDD$part_trajets_soiree)
+
+#exemple pour un cluster : 
+mean(bdd_cluster1$part_vacances)
+mean(bdd_cluster1$part_weekend)
+mean(bdd_cluster1$part_trajets_matinaux)
+mean(bdd_cluster1$part_trajets_soiree)
