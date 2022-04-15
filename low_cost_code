@@ -9,8 +9,10 @@ summary(bdd_cluster1)
 summary(bdd_cluster2)
 summary(bdd_cluster3)
 
-#pour aller dans le détail
+#un boxplot pour le nb de réservations
 boxplot(BDD$nb_reservations_0_12m ~ BDD$clusters_Pierre)
+
+#moyenne du nombre de réservations par cluster
 mean(bdd_cluster1$nb_reservations_total)
 mean(bdd_cluster5$nb_reservations_total)
 mean(bdd_cluster3$nb_reservations_total)
@@ -74,3 +76,28 @@ sum(na.omit(BDD$ca_0_12m))/sum(na.omit(BDD$nb_reservations_0_12m)) -> panier_moy
 sum(bdd_cluster1$ca_0_12m)/sum(bdd_cluster1$nb_reservations_0_12m) -> panier_moyen_N1_cluster1
 (sum(na.omit(bdd_cluster3$ca_0_12m))/sum(na.omit(bdd_cluster3$nb_reservations_0_12m)))-> panier_moyen_N1_cluster3
 (sum(na.omit(bdd_cluster5$ca_0_12m))/sum(na.omit(bdd_cluster5$nb_reservations_0_12m)))-> panier_moyen_N1_cluster5
+
+#Moyennes des options sélectionnées en N1 par les clients
+mean(na.omit(BDD$pct_trajet_option_repas)) -> Frequence_option_repas
+mean(na.omit(BDD$pct_trajet_option_wifi)) -> Frequence_option_wifi
+mean(na.omit(BDD$pct_trajet_option_espace_lounge)) -> Frequence_option_lounge
+mean(na.omit(BDD$pct_trajet_option_animal))-> Frequence_option_animal
+mean(na.omit(BDD$pct_trajet_option_bagages_supplementaire)) -> Frequence_option_bagages
+
+#Moyenne des délais de réservations par cluster
+mean(na.omit(BDD$delai_resa_vol_moyen))
+mean(na.omit(bdd_cluster1$delai_resa_vol_moyen)) -> delay_resa_cluster1
+mean(na.omit(bdd_cluster3$delai_resa_vol_moyen)) -> delay_resa_cluster3
+mean(na.omit(bdd_cluster5$delai_resa_vol_moyen)) -> delay_resa_cluster5
+
+#Repartition des clients vis à vis des canaux de réservation
+mean(na.omit(BDD$part_reservation_mobile)) 
+mean(na.omit(bdd_cluster1$part_reservation_mobile))
+mean(na.omit(bdd_cluster3$part_reservation_mobile))
+mean(na.omit(bdd_cluster5$part_reservation_mobile))
+mean(na.omit(bdd_cluster1$part_reservation_site))
+mean(na.omit(bdd_cluster3$part_reservation_site))
+mean(na.omit(bdd_cluster5$part_reservation_site))
+mean(na.omit(bdd_cluster1$part_reservation_partenaire1))
+mean(na.omit(bdd_cluster3$part_reservation_partenaire1))
+mean(na.omit(bdd_cluster5$part_reservation_partenaire1))
