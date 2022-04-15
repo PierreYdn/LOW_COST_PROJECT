@@ -1,0 +1,50 @@
+#faire trois dataframe, un par cluster
+library(dplyr)
+bdd_cluster1 <- filter(BDD, BDD$clusters_Pierre=="1")
+bdd_cluster3 <- filter(BDD, BDD$clusters_Pierre=="3")
+bdd_cluster5 <- filter(BDD, BDD$clusters_Pierre=="5")
+
+#vue globale sur les trois clusters
+summary(bdd_cluster1)
+summary(bdd_cluster2)
+summary(bdd_cluster3)
+
+#pour aller dans le détail
+boxplot(BDD$nb_reservations_0_12m ~ BDD$clusters_Pierre)
+mean(bdd_cluster1$nb_reservations_total)
+mean(bdd_cluster5$nb_reservations_total)
+mean(bdd_cluster3$nb_reservations_total)
+
+#calcul du NPS au global et par cluster
+summary(BDD$satisfaction_moyenne)
+summary(bdd_cluster1$satisfaction_moyenne)
+summary(bdd_cluster3$satisfaction_moyenne)
+summary(bdd_cluster5$satisfaction_moyenne)
+
+#Calcul des taux d'achat
+table(BDD$nb_reservations_0_12m > 0)
+table(BDD$nb_reservations_0_24m > 0)
+16250/30000 #Le taux d'achat total est de 0,54%
+table(bdd_cluster1$nb_reservations_0_12m > 0)
+9992/10000 #taux d'achat cluster 1 : 0,99%
+table(bdd_cluster3$nb_reservations_0_12m > 0)
+7551/10000 #taux d'achat cluster 3 : 0,75%
+table(bdd_cluster5$nb_reservations_0_12m > 0)
+6284/10000 #taux d'achat cluster 5 : 0,62%
+
+#Evolution du nombre de réservation sur les deux dernières années
+sum(BDD$nb_reservations_0_12m) -> resa_12m #somme : 154371
+sum(BDD$nb_reservations_0_24m)-> resa_24m #somme : 229998
+sum(BDD$nb_reservations_0_24m)- sum(BDD$nb_reservations_0_12m) -> ecart_resa #ça fait 75627
+((resa_12m-ecart_resa)/ecart_resa)*100 #104%, donc évolution des résa de 104%
+
+#CA par cluster sur 1 an
+sum(bdd_cluster1$ca_0_12m) -> CA_cluster1
+sum(na.omit(bdd_cluster3$ca_0_12m)) -> CA_cluster3
+sum(na.omit(bdd_cluster5$ca_0_12m)) -> CA_cluster5
+
+#Reservations par client en moyenne
+sum(BDD$nb_reservations_0_12m)/16250 -> mean_resa_12m #9,49 
+sum(BDD$nb_reservations_0_24m)/29797 -> mean_resa_24m #7,71
+mean_resa_24m - mean_resa_12m
+sum(BDD$nb_reservations_total)/30000 #9,76
