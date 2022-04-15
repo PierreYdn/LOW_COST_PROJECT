@@ -22,9 +22,6 @@ summary(bdd_cluster3$satisfaction_moyenne)
 summary(bdd_cluster5$satisfaction_moyenne)
 
 #Calcul des taux d'achat
-table(BDD$nb_reservations_0_12m > 0)
-table(BDD$nb_reservations_0_24m > 0)
-16250/30000 #Le taux d'achat total est de 0,54%
 table(bdd_cluster1$nb_reservations_0_12m > 0)
 9992/10000 #taux d'achat cluster 1 : 0,99%
 table(bdd_cluster3$nb_reservations_0_12m > 0)
@@ -32,11 +29,21 @@ table(bdd_cluster3$nb_reservations_0_12m > 0)
 table(bdd_cluster5$nb_reservations_0_12m > 0)
 6284/10000 #taux d'achat cluster 5 : 0,62%
 
+#Nombre de clients par cluster en N1
+9992 -> nb_clients_cluster1
+7551 -> nb_clients_cluster3
+6284 -> nb_clients_cluster5
+
 #Evolution du nombre de réservation sur les deux dernières années
 sum(BDD$nb_reservations_0_12m) -> resa_12m #somme : 154371
 sum(BDD$nb_reservations_0_24m)-> resa_24m #somme : 229998
 sum(BDD$nb_reservations_0_24m)- sum(BDD$nb_reservations_0_12m) -> ecart_resa #ça fait 75627
 ((resa_12m-ecart_resa)/ecart_resa)*100 #104%, donc évolution des résa de 104%
+
+#CA total en N1, N2 et sur deux ans
+sum(na.omit(BDD$ca_0_12m)) -> CA_N1
+sum(na.omit(BDD$ca_0_24m)) -> CA_N1_N2
+CA_N1_N2 - CA_N1 -> CA_N2
 
 #CA par cluster sur 1 an
 sum(bdd_cluster1$ca_0_12m) -> CA_cluster1
@@ -44,7 +51,26 @@ sum(na.omit(bdd_cluster3$ca_0_12m)) -> CA_cluster3
 sum(na.omit(bdd_cluster5$ca_0_12m)) -> CA_cluster5
 
 #Reservations par client en moyenne
-sum(BDD$nb_reservations_0_12m)/16250 -> mean_resa_12m #9,49 
+sum(BDD$nb_reservations_0_12m)/23827 -> mean_resa_12m #6,47 
 sum(BDD$nb_reservations_0_24m)/29797 -> mean_resa_24m #7,71
-mean_resa_24m - mean_resa_12m
+ecart_resa/(29797-23827) -> mean_resa_N2 #12,66
 sum(BDD$nb_reservations_total)/30000 #9,76
+
+#Evolution des réservations par client
+table(BDD$nb_reservations_0_12m > 0) 
+23827 -> nb_clients_N1 #23827 
+table(BDD$nb_reservations_0_24m > 0) 
+29797 -> nb_clients_N1_N2 #29797
+nb_clients_N1_N2 - nb_clients_N1 ->  nb_clients_N2
+
+#taux multi achat
+sum(BDD$multi_acheteur_12m)/nb_clients_N1 -> Tx_Multi_Acheteur_N1
+sum(bdd_cluster1$multi_acheteur_12m)/ nb_clients_cluster1 -> Tx_Multi_Acheteur_N1_cluster1
+sum(bdd_cluster3$multi_acheteur_12m)/ nb_clients_cluster3 -> Tx_Multi_Acheteur_N1_cluster3
+sum(bdd_cluster5$multi_acheteur_12m)/ nb_clients_cluster5 -> Tx_Multi_Acheteur_N1_cluster5
+
+#Panier moyen sur 12 mois
+sum(na.omit(BDD$ca_0_12m))/sum(na.omit(BDD$nb_reservations_0_12m)) -> panier_moyen_N1
+sum(bdd_cluster1$ca_0_12m)/sum(bdd_cluster1$nb_reservations_0_12m) -> panier_moyen_N1_cluster1
+(sum(na.omit(bdd_cluster3$ca_0_12m))/sum(na.omit(bdd_cluster3$nb_reservations_0_12m)))-> panier_moyen_N1_cluster3
+(sum(na.omit(bdd_cluster5$ca_0_12m))/sum(na.omit(bdd_cluster5$nb_reservations_0_12m)))-> panier_moyen_N1_cluster5
