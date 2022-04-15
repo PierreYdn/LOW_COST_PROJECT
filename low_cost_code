@@ -142,3 +142,20 @@ mean(bdd_cluster1$part_vacances)
 mean(bdd_cluster1$part_weekend)
 mean(bdd_cluster1$part_trajets_matinaux)
 mean(bdd_cluster1$part_trajets_soiree)
+
+#Part des hommes et des femmes parmis la clientèle
+sum(na.omit(BDD$genre_homme))/30000 -> nb_homme
+1 - nb_homme -> nb_femme
+
+#Taux Optin
+table(bdd_cluster1$optin > 0)
+9897 -> optin_true_cluster1
+optin_true_cluster1 / 10000 -> tx_optin_cluster1
+
+table(bdd_cluster3$optin > 0)
+9932 -> optin_true_cluster3
+optin_true_cluster3 / 10000 -> tx_optin_cluster3
+
+table(bdd_cluster5$optin > 0)
+5385 -> optin_true_cluster5
+optin_true_cluster5 / 10000 -> tx_optin_cluster5
